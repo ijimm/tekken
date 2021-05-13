@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>tekken   </title>
+    <link href="style.css" type="text/css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="characters">
+        <img data-key="80" class="char" src="images/paul.png">
+        <img data-key="76" class="char" src="images/law.png">
+        <img data-key="89" class="char" src="images/yoshimitsu.png">
+        <img data-key="78" class="char" src="images/nina.png">
+        <img data-key="72" class="char" src="images/heihachi.png">
+        <img data-key="66" class="char" src="images/bryan.png">
+        <img data-key="69" class="char" src="images/eddy.png">
+    </div>
+    <audio data-key="80" src="sounds/paul.wav"></audio>
+    <audio data-key="76" src="sounds/law.wav"></audio>
+    <audio data-key="89" src="sounds/yoshimitsu.wav"></audio>
+    <audio data-key="78" src="sounds/nina.wav"></audio>
+    <audio data-key="72" src="sounds/heihachi.wav"></audio>
+    <audio data-key="66" src="sounds/bryan.wav"></audio>
+    <audio data-key="69" src="sounds/eddy.wav"></audio>
+
+
+</body>
+
+<script>
+
+
+    function playSound(e) {
+        const audio = document.querySelector(`audio[data-key="${e.keyCode}"]`);
+        const key = document.querySelector(`.char[data-key="${e.keyCode}"]`);
+        if (!audio) return;
+        audio.currentTime = 0 //rewinds to the start
+        audio.play();
+        key.classList.add('playing');
+    }
+
+
+    const keys = document.querySelectorAll('.char');
+
+    function removeTransition(e) {
+        if (e.propertyName !== 'transform') return;
+        this.classList.remove('playing');
+    }
+
+    keys.forEach(key => key.addEventListener('transitionend', removeTransition));
+    window.addEventListener('keydown', playSound);
+
+</script>
+
+
+
+</html>
